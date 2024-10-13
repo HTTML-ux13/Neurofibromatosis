@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +25,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 300px; /* Tamaño inicial del jumpscare */
-            transition: width 0.5s; /* Transición suave para el tamaño */
+            transition: width 0.1s; /* Transición más rápida para el tamaño */
             filter: invert(1); /* Filtro para invertir colores */
         }
         #hiddenText {
@@ -50,52 +49,76 @@
     </style>
 </head>
 <body>
-    <h1></h1>
-    <img id="mainImage" src="https://www.dropbox.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?rlkey=dpj11ldeq80u1sbe7n4vwvdwk&dl=1" alt="Perro" onclick="startJumpScare()">
+    <h1 style="display:none;">Funny Fun</h1>
+    <img id="mainImage" src="https://www.dropbox.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?rlkey=dpj11ldeq80u1sbe7n4vwvdwk&dl=1" alt="Gato" onclick="startJumpScare()">
     <div id="hiddenText">Psalmus 23:4: "Et si ambulavero in medio umbrae mortis, non timebo mala; tecum est baculus tuus et virga tua." </div>
     <img id="jumpscareImage" src="https://www.dropbox.com/scl/fi/nqy2dv92vovm7oc738aj0/98-sin-t-tulo_20241012234138.png?rlkey=w6eb4sgvpuf2ujgwffs3ei065&dl=1" alt="Jumpscare">
     <div id="arrow">¡Hazme click!</div>
     <audio id="jumpAudio" src="https://www.dropbox.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?rlkey=uynyuo79q8keho3zjd18093t7&dl=1" preload="auto"></audio>
 
     <script>
+        // Comprobar el estado de localStorage
+        if (localStorage.getItem('jumpscareActivated') === 'true') {
+            activateJumpscare();
+        }
+
         function startJumpScare() {
             // Mostrar texto oculto
             document.getElementById('hiddenText').style.display = 'block';
             
-            // Reproducir audio
+            // Reproducir audio con volumen al 100%
             var audio = document.getElementById('jumpAudio');
+            audio.volume = 1; // Establece el volumen al máximo
             audio.play();
 
+            // Ocultar la imagen del gato
+            document.getElementById('mainImage').style.display = 'none';
+
+            // Esperar un momento antes de mostrar el jumpscare
+            setTimeout(function() {
+                activateJumpscare();
+            }, 500); // Esperar 0.5 segundos antes de mostrar el jumpscare
+        }
+
+        function activateJumpscare() {
+            localStorage.setItem('jumpscareActivated', 'true'); // Guardar estado en localStorage
+            
             // Animación de la imagen del jumpscare
             var jumpscare = document.getElementById('jumpscareImage');
             jumpscare.style.display = 'block';
 
-            // Acercar la imagen del jumpscare
+            // Cambiar colores rápidamente
+            let colorInvert = 1;
             setInterval(function() {
-                let currentWidth = parseInt(window.getComputedStyle(jumpscare).width);
-                jumpscare.style.width = (currentWidth + 10) + 'px';
+                // Cambiar colores
+                if (colorInvert) {
+                    jumpscare.style.filter = 'invert(0)';
+                } else {
+                    jumpscare.style.filter = 'invert(1)';
+                }
+                colorInvert = !colorInvert;
 
-                // Cambiar colores rápidamente
-                jumpscare.style.filter = jumpscare.style.filter === 'invert(1)' ? 'invert(0)' : 'invert(1)';
-            }, 100);
+                // Acercar la imagen del jumpscare
+                let currentWidth = parseInt(window.getComputedStyle(jumpscare).width);
+                jumpscare.style.width = (currentWidth + 15) + 'px'; // Acelera el acercamiento
+            }, 50); // Cambiar colores cada 50 ms
 
             // Ocultar la flecha después de un tiempo
             document.getElementById('arrow').style.display = 'none';
 
-            // Cerrar la página después de 4 minutos
+            // Cerrar la página después de 5 minutos
             setTimeout(function() {
                 window.close();
-            }, 240000); // 240000 ms = 4 minutos
+            }, 300000); // 300000 ms = 5 minutos
         }
 
-        // Cerrar la página después de 2 minutos si no hay clic
+        // Cerrar la página después de 4 minutos si no hay clic
         setTimeout(function() {
             var jumpscare = document.getElementById('jumpscareImage');
             if (jumpscare.style.display === 'none') {
-                jumpscare.style.display = 'block';
-                document.getElementById('jumpAudio').play();
+                activateJumpscare();
             }
-        }, 120000); // 120000 ms = 2 minutos
+        }, 240000); // 240000 ms = 4 minutos
     </script>
 </body>
 </html>
