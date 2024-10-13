@@ -15,7 +15,7 @@
             margin: 0;
         }
         #mainImage {
-            width: 300px; /* Tamaño inicial de la imagen del gato */
+            width: 200px; /* Tamaño inicial de la imagen */
             transition: width 0.5s; /* Transición suave para el tamaño */
         }
         #jumpscareImage {
@@ -25,7 +25,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 300px; /* Tamaño inicial del jumpscare */
-            transition: width 0.5s; /* Transición suave para el tamaño */
+            transition: width 0.1s ease-in-out; /* Transición rápida */
             filter: invert(1); /* Filtro para invertir colores */
         }
         #hiddenText {
@@ -37,41 +37,37 @@
             font-size: 24px;
             color: red; /* Color del texto */
         }
-        #arrow {
-            position: absolute;
-            top: 80%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            color: red;
-            z-index: 1; /* Para asegurarse de que esté por encima de otros elementos */
-        }
     </style>
 </head>
 <body>
-    <img id="mainImage" src="https://www.dropbox.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?raw=1" alt="Gato" onclick="startJumpScare()">
-    <div id="hiddenText">¡Haz click aquí!</div>
-    <img id="jumpscareImage" src="https://www.dropbox.com/scl/fi/nqy2dv92vovm7oc738aj0/98-sin-t-tulo_20241012234138.png?raw=1" alt="Jumpscare">
-    <audio id="jumpAudio" src="https://www.dropbox.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?raw=1" preload="auto"></audio>
+    <!-- Imagen del gato -->
+    <img id="mainImage" src="https://www.dropbox.com/scl/fi/hdoko49a3vhwzfieyok4v/99-sin-t-tulo_20241012234205.png?rlkey=bc8if8wpg2stxhnxns8rgqzmi&st=tlqih2so&raw=1" alt="Gato" onclick="startJumpScare()">
+    <div id="hiddenText">¡Hazme click aquí!</div>
+    
+    <!-- Imagen del jumpscare -->
+    <img id="jumpscareImage" src="https://www.dropbox.com/scl/fi/4nivdm91hptx0cn4sir95/98-sin-t-tulo_20241012234138.png?rlkey=6ae6seq8jbn8wu9cdwh9li0zl&raw=1" alt="">
+
+    <!-- Audio del jumpscare -->
+    <audio id="jumpAudio" src="https://www.dropbox.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?rlkey=uynyuo79q8keho3zjd18093t7&raw=1" preload="auto"></audio>
 
     <script>
         function startJumpScare() {
             // Reproducir audio
             var audio = document.getElementById('jumpAudio');
-            audio.volume = 1; // Asegúrate de que el volumen esté al 100%
+            audio.volume = 1; // Volumen máximo permitido (100%)
             audio.play();
 
             // Animación de la imagen del jumpscare
             var jumpscare = document.getElementById('jumpscareImage');
             jumpscare.style.display = 'block';
 
-            // Acercar la imagen del jumpscare
+            // Acercar la imagen del jumpscare rápidamente
             let currentWidth = parseInt(window.getComputedStyle(jumpscare).width);
             let interval = setInterval(function() {
-                jumpscare.style.width = (currentWidth + 20) + 'px'; // Acelera el acercamiento
-                currentWidth += 20;
+                jumpscare.style.width = (currentWidth + 50) + 'px'; // Acelera el acercamiento
+                currentWidth += 50;
                 jumpscare.style.filter = jumpscare.style.filter === 'invert(1)' ? 'invert(0)' : 'invert(1)'; // Cambia colores rápidamente
-            }, 100); // Cambiar de color y acercar cada 100 ms
+            }, 50); // Cambiar de color y acercar cada 50 ms (más rápido)
 
             // Ocultar el texto y la imagen del gato después de un tiempo
             setTimeout(function() {
