@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>funny.fun</title>
+    <title>Funny Fun</title>
     <style>
         body {
             background-color: black;
@@ -46,22 +47,15 @@
             font-size: 24px;
             color: red;
         }
-        #clickText {
-            position: absolute;
-            top: 80%;
-            left: 45%;
-            font-size: 24px;
-            color: red;
-        }
     </style>
 </head>
 <body>
-    <h1>funny.fun</h1>
-    <img id="mainImage" src="https://dl.dropboxusercontent.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?rlkey=dpj11ldeq80u1sbe7n4vwvdwk&dl=1" alt="Gato" onclick="startJumpScare()">
+    <h1></h1>
+    <img id="mainImage" src="https://www.dropbox.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?rlkey=dpj11ldeq80u1sbe7n4vwvdwk&dl=1" alt="Perro" onclick="startJumpScare()">
     <div id="hiddenText">Psalmus 23:4: "Et si ambulavero in medio umbrae mortis, non timebo mala; tecum est baculus tuus et virga tua." </div>
-    <img id="jumpscareImage" src="https://dl.dropboxusercontent.com/scl/fi/nqy2dv92vovm7oc738aj0/98-sin-t-tulo_20241012234138.png?rlkey=w6eb4sgvpuf2ujgwffs3ei065&dl=1" alt="Jumpscare">
+    <img id="jumpscareImage" src="https://www.dropbox.com/scl/fi/nqy2dv92vovm7oc738aj0/98-sin-t-tulo_20241012234138.png?rlkey=w6eb4sgvpuf2ujgwffs3ei065&dl=1" alt="Jumpscare">
     <div id="arrow">¡Hazme click!</div>
-    <audio id="jumpAudio" src="https://dl.dropboxusercontent.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?rlkey=uynyuo79q8keho3zjd18093t7&dl=1" preload="auto"></audio>
+    <audio id="jumpAudio" src="https://www.dropbox.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?rlkey=uynyuo79q8keho3zjd18093t7&dl=1" preload="auto"></audio>
 
     <script>
         function startJumpScare() {
@@ -76,22 +70,22 @@
             var jumpscare = document.getElementById('jumpscareImage');
             jumpscare.style.display = 'block';
 
-            // Acercar la imagen del jumpscare y alternar colores
-            var intervalId = setInterval(function() {
+            // Acercar la imagen del jumpscare
+            setInterval(function() {
                 let currentWidth = parseInt(window.getComputedStyle(jumpscare).width);
                 jumpscare.style.width = (currentWidth + 10) + 'px';
-                jumpscare.style.filter = (jumpscare.style.filter === 'invert(1)') ? 'invert(0)' : 'invert(1)'; // Cambia el filtro rápido
+
+                // Cambiar colores rápidamente
+                jumpscare.style.filter = jumpscare.style.filter === 'invert(1)' ? 'invert(0)' : 'invert(1)';
             }, 100);
 
-            // Ocultar la flecha y el texto después de un tiempo
+            // Ocultar la flecha después de un tiempo
             document.getElementById('arrow').style.display = 'none';
-            document.getElementById('clickText').style.display = 'none';
 
-            // Cerrar la página después de 5 segundos
+            // Cerrar la página después de 4 minutos
             setTimeout(function() {
-                clearInterval(intervalId); // Detener el intervalo
                 window.close();
-            }, 5000);
+            }, 240000); // 240000 ms = 4 minutos
         }
 
         // Cerrar la página después de 2 minutos si no hay clic
