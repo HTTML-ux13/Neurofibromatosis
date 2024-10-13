@@ -29,39 +29,4 @@
             filter: invert(1); /* Filtro para invertir colores */
         }
         #hiddenText {
-            display: none; /* Oculta el texto al inicio */
-            position: absolute;
-            top: 70%;
-            left: 45%;
-            font-size: 24px;
-            color: red;
-        }
-    </style>
-</head>
-<body>
-    <img id="mainImage" src="https://www.dropbox.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?rlkey=dpj11ldeq80u1sbe7n4vwvdwk&dl=1" alt="Perro" onclick="startJumpScare()">
-    <div id="hiddenText">¡Hazme click!</div>
-    <img id="jumpscareImage" src="https://www.dropbox.com/scl/fi/nqy2dv92vovm7oc738aj0/98-sin-t-tulo_20241012234138.png?rlkey=w6eb4sgvpuf2ujgwffs3ei065&dl=1" alt="Jumpscare">
-    <audio id="jumpAudio" src="https://www.dropbox.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?rlkey=uynyuo79q8keho3zjd18093t7&dl=1" preload="auto"></audio>
-
-    <script>
-        // Verificar si ya se mostró el jumpscare
-        if (localStorage.getItem('jumpscareShown')) {
-            document.getElementById('mainImage').style.display = 'none'; // Ocultar imagen principal
-        }
-
-        function startJumpScare() {
-            // Marcar que se mostró el jumpscare
-            localStorage.setItem('jumpscareShown', 'true');
-
-            // Mostrar texto oculto
-            document.getElementById('hiddenText').style.display = 'block';
-            
-            // Reproducir audio
-            var audio = document.getElementById('jumpAudio');
-            audio.volume = 1.0; // Establecer el volumen al 100%
-            audio.play();
-
-            // Animación de la imagen del jumpscare
-            var jumpscare = document.getElementById('jumpscareImage');
-    
+            position
