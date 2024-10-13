@@ -29,4 +29,62 @@
             filter: invert(1); /* Filtro para invertir colores */
         }
         #hiddenText {
-            position
+            display: block; /* Muestra el texto al inicio */
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: red; /* Color del texto */
+        }
+        #arrow {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: red;
+            z-index: 1; /* Para asegurarse de que esté por encima de otros elementos */
+        }
+    </style>
+</head>
+<body>
+    <img id="mainImage" src="https://www.dropbox.com/scl/fi/yij5ajd8dqb6xf6w38e9a/99-sin-t-tulo_20241012234205.png?rlkey=dpj11ldeq80u1sbe7n4vwvdwk&dl=1" alt="Gato" onclick="startJumpScare()">
+    <div id="hiddenText">¡Hazme click aquí!</div>
+    <img id="jumpscareImage" src="https://www.dropbox.com/scl/fi/nqy2dv92vovm7oc738aj0/98-sin-t-tulo_20241012234138.png?rlkey=w6eb4sgvpuf2ujgwffs3ei065&dl=1" alt="Jumpscare">
+    <audio id="jumpAudio" src="https://www.dropbox.com/scl/fi/xg12y71qmtp2wx818h6ps/E9FE4962-0FD7-4BC8-B23F-F013BA7A2E9E.mp3?rlkey=uynyuo79q8keho3zjd18093t7&dl=1" preload="auto"></audio>
+
+    <script>
+        function startJumpScare() {
+            // Reproducir audio
+            var audio = document.getElementById('jumpAudio');
+            audio.volume = 1; // Asegúrate de que el volumen esté al 100%
+            audio.play();
+
+            // Animación de la imagen del jumpscare
+            var jumpscare = document.getElementById('jumpscareImage');
+            jumpscare.style.display = 'block';
+
+            // Acercar la imagen del jumpscare
+            let currentWidth = parseInt(window.getComputedStyle(jumpscare).width);
+            let interval = setInterval(function() {
+                jumpscare.style.width = (currentWidth + 20) + 'px'; // Acelera el acercamiento
+                currentWidth += 20;
+                jumpscare.style.filter = jumpscare.style.filter === 'invert(1)' ? 'invert(0)' : 'invert(1)'; // Cambia colores rápidamente
+            }, 100); // Cambiar de color y acercar cada 100 ms
+
+            // Ocultar el texto y la imagen del gato después de un tiempo
+            setTimeout(function() {
+                document.getElementById('hiddenText').style.display = 'none'; // Oculta el texto
+                document.getElementById('mainImage').style.display = 'none'; // Oculta la imagen del gato
+                clearInterval(interval); // Detiene la animación
+            }, 5000); // Espera 5 segundos antes de ocultar
+        }
+
+        // Cerrar la página después de 5 minutos si no hay clic
+        setTimeout(function() {
+            window.close();
+        }, 300000); // 300000 ms = 5 minutos
+    </script>
+</body>
+</html>
